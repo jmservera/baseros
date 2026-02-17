@@ -13,6 +13,9 @@ ENV COLCON_HOME=/home/${USERNAME}/.colcon
 # Set the shell to support the "source" command
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
+# Refresh the expired ROS 2 GPG key
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | \
+    gpg --batch --yes --dearmor -o /usr/share/keyrings/ros2-latest-archive-keyring.gpg
 
 RUN apt-get update && apt-get upgrade -yq && \
     rm -rf /var/lib/apt/lists/*
