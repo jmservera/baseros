@@ -1,14 +1,14 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-  // "image": "ghcr.io/robotics-content-lab/jazzy:base",
+  "image": "ghcr.io/jmservera/baseros/jazzy:sim",
   // Uncomment the next block if you want to modify the container created by building the Dockerfile
-  "dockerFile": "Dockerfile.sim",
-  "build": {
-    "args": {
-      "ROS_DISTRO": "jazzy",
-      "USERNAME": "ros_user"
-    }
-  },
+  // "dockerFile": "Dockerfile.sim",
+  // "build": {
+  //   "args": {
+  //     "ROS_DISTRO": "jazzy",
+  //     "USERNAME": "ros_user"
+  //   }
+  // },
   "context": ".",
   "remoteUser": "ros_user",
   "initializeCommand": "xhost +local:docker || true",
@@ -43,15 +43,15 @@
         "betwo.b2-catkin-tools",
         "DotJoshJohnson.xml",
         "ms-azuretools.vscode-docker",
-        "ms-iot.vscode-ros",
         "ms-python.python",
         "ms-vscode.cpptools",
         "redhat.vscode-yaml",
-        "smilerobotics.urdf",
         "streetsidesoftware.code-spell-checker",
         "twxs.cmake",
         "yzhang.markdown-all-in-one",
-        "zachflower.uncrustify"
+        "zachflower.uncrustify",
+        "Ranch-Hand-Robotics.rde-ros-2",
+        "Ranch-Hand-Robotics.urdf-editor"
       ]
     }
   }
