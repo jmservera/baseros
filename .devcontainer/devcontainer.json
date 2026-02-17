@@ -12,7 +12,7 @@
   "context": ".",
   "remoteUser": "ros_user",
   "initializeCommand": "xhost +local:docker || true",
-  "postCreateCommand": "/usr/local/bin/build_ws",
+  "postCreateCommand": "cp -rn ~/.gnupg-host/* ~/.gnupg/ 2>/dev/null; cp -rn ~/.gnupg-host/private-keys-v1.d/* ~/.gnupg/private-keys-v1.d/ 2>/dev/null; echo 'pinentry-program /usr/bin/pinentry-curses' > ~/.gnupg/gpg-agent.conf && gpgconf --kill gpg-agent 2>/dev/null; /usr/local/bin/build_ws",
   "runArgs": [
     "--name=ros2_devcontainer", // sets the name of the container
     "--network=host", // allows the container to access the host network
@@ -25,14 +25,16 @@
     // "--gpus=all", // this is needed for hardware acceleration on nvidia gpus
     "--volume=/mnt/wslg:/mnt/wslg", // uncomment to use wslg
     "--ipc=host", // allow the container to share the same Inter-Process Communcation (IPC) namespace as the host
-    "--device=/dev/dri" // uncomment to use intel iGPU
+    "--device=/dev/dri", // uncomment to use intel iGPU
+    "--volume=${localEnv:HOME}/.gnupg:/home/ros_user/.gnupg-host:ro" // mount host GPG keyring for commit signing
   ],
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
     "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
     "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
     "PULSE_SERVER": "${localEnv:PULSE_SERVER}",
-    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST"
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "GPG_TTY": "/dev/pts/0" // Needed for GPG passphrase prompt in terminal
     // uncomment if you are on ARM architecture
     // "LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
   },
