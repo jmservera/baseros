@@ -1,5 +1,5 @@
-ARG ROS_DISTRO=jazzy
-FROM ghcr.io/robotics-content-lab/${ROS_DISTRO}:base
+ARG ROS_DISTRO=kilted
+FROM ghcr.io/jmservera/baseros/${ROS_DISTRO}:base
 
 ARG USERNAME=ros_user
 ARG USER_UID=1000

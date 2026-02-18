@@ -1,5 +1,5 @@
-ARG ROS_DISTRO=jazzy
-FROM ghcr.io/robotics-content-lab/${ROS_DISTRO}:base
+ARG ROS_DISTRO=kilted
+FROM ghcr.io/jmservera/baseros/${ROS_DISTRO}:base
 
 ARG USERNAME=ros_user
 ARG USER_UID=1000
@@ -21,10 +21,11 @@ RUN apt-get update && apt-get upgrade -yq && \
     rm -rf /var/lib/apt/lists/*
 
 # Install gz
+# Check https://gazebosim.org/docs/latest/ros_installation/ for compatibility between ROS 2 and Gazebo versions
 #hadolint ignore=DL3008,SC2086
 RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
-    apt-get update && declare -A version=(["rolling"]="ionic" ["jazzy"]="harmonic" ["iron"]="fortress") && \
+    apt-get update && declare -A version=(["rolling"]="ionic" ["jazzy"]="harmonic" ["iron"]="fortress" ["kilted"]="ionic" ) && \
     apt-get install -y gz-${version[$ROS_DISTRO]} --no-install-recommends && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

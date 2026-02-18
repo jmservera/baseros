@@ -2,6 +2,10 @@
 # shellcheck disable=SC1090,SC2086,SC1091
 # Helper script to build ROS 2 workspace and install dependencies in the container
 
+sudo mkdir -p /run/user/1000
+sudo chown -R 1000:1000 /run/user/1000
+sudo chmod 700 /run/user/1000
+
 source "/opt/ros/$ROS_DISTRO/setup.bash" --
 
 if [ -e ${HOME}/ros2_ws/ ]; then
@@ -15,3 +19,4 @@ if [ -e ${HOME}/ros2_ws/ ]; then
 else
     echo "Error: ROS 2 workspace not found at ${HOME}/ros2_ws."
 fi
+
